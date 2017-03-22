@@ -1,6 +1,6 @@
 Photographers table:
 
- photographers CREATE TABLE `photographers` (
+  CREATE TABLE `photographers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fname` varchar(20) DEFAULT NULL,
   `lname` varchar(20) DEFAULT NULL,
@@ -12,10 +12,10 @@ Photographers table:
 
 Contracts table:
 
- contracts  CREATE TABLE `contracts` (
+  CREATE TABLE `contracts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type_of_shoot` char(25) DEFAULT NULL,
-  `vendor_id` int(11) DEFAULT NULL,
+  `vendor_id` int(11) NOT NULL,
   `vendor_paid` char(1) DEFAULT NULL,
   `amount_for_vendor` varchar(20) DEFAULT NULL,
   `SLA_NET` varchar(20) DEFAULT NULL,
@@ -27,12 +27,20 @@ Contracts table:
   `agent_id` int(11) DEFAULT NULL,
   `confirmation_sent` varchar(20) DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 
+  PRIMARY KEY (`id`),
+  KEY `id_fk` (`vendor_id`),
+  KEY `location_id` (`location_id`),
+  KEY `customer_id` (`customer_id`),
+  KEY `agent_id` (`agent_id`),
+  CONSTRAINT `contracts_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `location` (`id`),
+  CONSTRAINT `contracts_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
+  CONSTRAINT `contracts_ibfk_3` FOREIGN KEY (`agent_id`) REFERENCES `agents` (`id`),
+  CONSTRAINT `id_fk` FOREIGN KEY (`vendor_id`) REFERENCES `photographers` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 Customers table:
 
- customers  CREATE TABLE `customers` (
+  CREATE TABLE `customers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fname` char(20) DEFAULT NULL,
   `lname` char(20) DEFAULT NULL,
@@ -43,7 +51,7 @@ Customers table:
 
 Agents table:
 
- agents  CREATE TABLE `agents` (
+ CREATE TABLE `agents` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fname` char(20) DEFAULT NULL,
   `lname` char(20) DEFAULT NULL,
@@ -54,7 +62,7 @@ Agents table:
 
 Location table:
 
- location  CREATE TABLE `location` (
+  CREATE TABLE `location` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `square_feet` varchar(25) DEFAULT NULL,
   `address` varchar(50) DEFAULT NULL,
