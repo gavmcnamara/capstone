@@ -1,1 +1,5 @@
+# server frame work
 flask==0.12
+
+# database connector
+MySQL-python==1.2.5
