@@ -1,4 +1,6 @@
-Photographers table:
+create database shootingla;
+
+use shootingla;  
 
   CREATE TABLE `photographers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -8,11 +10,46 @@ Photographers table:
   `email` varchar(254) DEFAULT NULL,
   `tier` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
 
-Contracts table:
 
-  CREATE TABLE `contracts` (
+  CREATE TABLE `customers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fname` char(20) DEFAULT NULL,
+  `lname` char(20) DEFAULT NULL,
+  `email` varchar(25) DEFAULT NULL,
+  `phone_number` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
+
+
+
+ CREATE TABLE `agents` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fname` char(20) DEFAULT NULL,
+  `lname` char(20) DEFAULT NULL,
+  `email` varchar(25) DEFAULT NULL,
+  `phone_number` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
+
+
+
+  CREATE TABLE `location` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `square_feet` varchar(25) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
+
+  CREATE TABLE 'users' (
+    'username' varchar(50) NOT NULL, 
+    'password' varchar(191) NOT NULL,
+    'session' varchar(191) NOT NULL,
+    PRIMARY KEY ('username')
+    ); 
+
+ CREATE TABLE `contracts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type_of_shoot` char(25) DEFAULT NULL,
   `vendor_id` int(11) NOT NULL,
@@ -36,35 +73,4 @@ Contracts table:
   CONSTRAINT `contracts_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
   CONSTRAINT `contracts_ibfk_3` FOREIGN KEY (`agent_id`) REFERENCES `agents` (`id`),
   CONSTRAINT `id_fk` FOREIGN KEY (`vendor_id`) REFERENCES `photographers` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
-
-Customers table:
-
-  CREATE TABLE `customers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fname` char(20) DEFAULT NULL,
-  `lname` char(20) DEFAULT NULL,
-  `email` varchar(25) DEFAULT NULL,
-  `phone_number` varchar(25) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 
-
-Agents table:
-
- CREATE TABLE `agents` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fname` char(20) DEFAULT NULL,
-  `lname` char(20) DEFAULT NULL,
-  `email` varchar(25) DEFAULT NULL,
-  `phone_number` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 
-
-Location table:
-
-  CREATE TABLE `location` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `square_feet` varchar(25) DEFAULT NULL,
-  `address` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
