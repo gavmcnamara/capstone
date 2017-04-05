@@ -42,11 +42,11 @@ use shootingla;
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
 
-  CREATE TABLE 'users' (
-    'username' varchar(50) NOT NULL, 
-    'password' varchar(191) NOT NULL,
-    'session' varchar(191) NOT NULL,
-    PRIMARY KEY ('username')
+  CREATE TABLE `users` (
+    `username` varchar(50) NOT NULL, 
+    `password` varchar(191) NOT NULL,
+    `session` varchar(191) NOT NULL,
+    PRIMARY KEY (`username`)
     ); 
 
  CREATE TABLE `contracts` (
