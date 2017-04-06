@@ -3,17 +3,11 @@ from flask import Flask, flash, redirect, render_template, request, session, abo
 import os
 from sqlalchemy.orm import sessionmaker
 from tabledef import *
-import hashlib, binascii 
+
+
 engine = create_engine('mysql://root:@localhost:3306/shootingla', echo=True)
 
 app = Flask(__name__)
-
-# hashing passowrd
-
-dk = hashlib.pbkdf2_hmac('sha256', b'password', b'salt', 100000)
-binascii.hexlify(dk)
-
-
 
 @app.route('/')
 def home():
@@ -21,19 +15,16 @@ def home():
         return render_template('login.html')
     else:
         return "You are logged in! <a href='/logout'>Logout</a>"
- 
-
 
 
 @app.route('/login', methods=['POST'])
 def do_admin_login():
-    
     POST_USERNAME = str(request.form['username'])
     POST_PASSWORD = str(request.form['password'])
 
     Session = sessionmaker(bind=engine)
     s = Session()
-    query = s.query(User).filter(User.username.in_([POST_USERNAME]), User.password.in_([POST_PASSWORD]) )
+    query = s.query(User).filter(User.username.in_([POST_USERNAME]), User.password.in_([POST_PASSWORD]))
     result = query.first()
     if result:
         session['logged_in'] = True
@@ -41,9 +32,6 @@ def do_admin_login():
     else:
         flash('wrong_password!')
         return "Wrong password!"
-
-
-
 
 @app.route("/logout")
 def logout():
@@ -53,4 +41,4 @@ def logout():
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
-    app.run(debug=True,host='0.0.0.0', port=4000)
+    app.run(debug=True, host='0.0.0.0', port=4000)
