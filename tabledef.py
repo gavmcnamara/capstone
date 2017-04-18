@@ -3,12 +3,13 @@ from sqlalchemy import create_engine, ForeignKey
 from sqlalchemy import Column, Date, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
-import binascii
-from hashlib import pbkdf2_hmac
-from app import sessionmaker
+import hashlib, binascii
+import os
+
 engine = create_engine('mysql://root:@localhost:3306/shootingla', echo=True)
 Base = declarative_base()
 
+dk = hashlib.pbkdf2_hmac('sha256', 'password', 'salt', 100000)
 
 ##############################################################
 
@@ -22,11 +23,9 @@ class User(Base):
     # ---------------------------------------------------------
     def __init__(self, username, password):
         self.username = username
-        self.password = dk(password)
+        self.password = binascii.hexlify(dk)
 
-
-    dk = pbkdf2_hmac('sha256', b'password', b'salt', 100000)
-    binascii.hexlify(dk)
+        
 
 
 # create tables

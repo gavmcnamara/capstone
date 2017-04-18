@@ -20,7 +20,9 @@ def home():
 @app.route('/login', methods=['POST'])
 def do_admin_login():
     POST_USERNAME = str(request.form['username'])
-    POST_PASSWORD = str(request.form['password'])
+    dk = hashlib.pbkdf2_hmac('sha256', str(request.form['password']), 'salt', 100000)
+    POST_PASSWORD = binascii.hexlify(dk)
+
 
     Session = sessionmaker(bind=engine)
     s = Session()
@@ -28,10 +30,11 @@ def do_admin_login():
     result = query.first()
     if result:
         session['logged_in'] = True
-        return "You are logged in!"
+        return render_template('react_router.html')
     else:
         flash('wrong_password!')
         return "Wrong password!"
+
 
 @app.route("/logout")
 def logout():
