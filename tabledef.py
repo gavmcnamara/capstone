@@ -9,7 +9,7 @@ import os
 engine = create_engine('mysql://root:@localhost:3306/shootingla', echo=True)
 Base = declarative_base()
 
-dk = hashlib.pbkdf2_hmac('sha256', 'password', 'salt', 100000)
+
 
 ##############################################################
 
@@ -23,10 +23,10 @@ class User(Base):
     # ---------------------------------------------------------
     def __init__(self, username, password):
         self.username = username
+        dk = hashlib.pbkdf2_hmac('sha256', password, 'salt', 100000)
         self.password = binascii.hexlify(dk)
 
         
-
 
 # create tables
 Base.metadata.create_all(engine)

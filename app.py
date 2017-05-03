@@ -36,6 +36,7 @@ def do_admin_login():
         return "Wrong password!"
 
 
+
 @app.route("/logout")
 def logout():
     session['logged_in'] = True
