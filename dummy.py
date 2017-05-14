@@ -18,6 +18,9 @@ session.add(user)
 user = User("Erin", "Duffy")
 session.add(user)
 
+user = User("gavmcnamara", "gavalese")
+session.add(user)
+
 # commit the record the database
 session.commit()
 

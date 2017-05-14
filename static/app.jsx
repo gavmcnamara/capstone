@@ -105,7 +105,7 @@ var Photographers = React.createClass({
           <li><Link to="/locations" activeClassName="active">Locations</Link></li>
         </ul>
         <div className="content">
-          {this.props.children}
+            {this.props.children}
         </div>
       </div>
     )

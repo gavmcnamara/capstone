@@ -6,7 +6,7 @@ use shootingla;
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fname` varchar(20) DEFAULT NULL,
   `lname` varchar(20) DEFAULT NULL,
-  `phone_number` varchar(20) DEFAULT NULL,
+  `phone_number` varchar(254) DEFAULT NULL,
   `email` varchar(254) DEFAULT NULL,
   `tier` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)

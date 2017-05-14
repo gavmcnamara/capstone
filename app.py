@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import Flask, flash, redirect, render_template, request, session, abort
+from flask import Flask, flash, redirect, render_template, request, session, abort, jsonify
 import os
 from sqlalchemy.orm import sessionmaker
 from tabledef import *
@@ -30,8 +30,9 @@ def do_admin_login():
     result = query.first()
     if result:
         session['logged_in'] = True
-        return render_template('react_router.html')
-    else:
+        return render_template('main.html')
+        # return render_template('react_router.html')
+    # else:
         flash('wrong_password!')
         return "Wrong password!"
 
@@ -41,6 +42,20 @@ def do_admin_login():
 def logout():
     session['logged_in'] = True
     return home()
+
+#################### need to connect code to photographers table and javascript
+
+@app.route('/_get_current_photographer', methods=["GET"])
+def get_current_photographer():
+
+    Session = sessionmaker(bind=engine)
+    s = Session()
+    query = s.query(photographers)
+
+    return jsonify(json_list=[i.serialize for i in query.all()])
+
+
+
 
 
 if __name__ == "__main__":
