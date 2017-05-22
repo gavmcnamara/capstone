@@ -39,6 +39,7 @@ use shootingla;
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `square_feet` varchar(25) DEFAULT NULL,
   `address` varchar(50) DEFAULT NULL,
+  'photographer' int(11) NOT NULL
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8; 
 

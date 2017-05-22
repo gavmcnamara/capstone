@@ -1,3 +1,5 @@
+from findertools import location
+
 from flask import Flask
 from flask import Flask, flash, redirect, render_template, request, session, abort, jsonify
 import os
@@ -54,6 +56,33 @@ def get_current_photographer():
 
     return jsonify(json_list=[i.serialize for i in query.all()])
 
+
+@app.route('/_get_current_location', methods=["GET"])
+def get_current_location():
+
+    Session = sessionmaker(bind=engine)
+    s = Session()
+    query = s.query(location)
+
+    return jsonify(location_list=[i.serialize for i in query.all()])
+
+@app.route('/_get_customers', methods=["GET"])
+def get_customers():
+
+    Session = sessionmaker(bind=engine)
+    s = Session()
+    query = s.query(customers)
+
+    return jsonify(customer_list=[i.serialize for i in query.all()])
+
+@app.route('/_show_contracts', methods=["GET"])
+def show_contracts():
+
+    Session = sessionmaker(bind=engine)
+    s = Session()
+    query = s.query(contracts)
+
+    return jsonify(customer_list=[i.serialize for i in query.all()])
 
 
 
